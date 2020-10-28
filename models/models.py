@@ -1,18 +1,28 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, exceptions
+import random, string
 import logging
 _logger = logging.getLogger(__name__)
 
+letters = string.ascii_lowercase
+
+def _random_string(length):
+    return ''.join(random.choice(letters) for i in range(length))
+
 class ExternalIDMixin(models.AbstractModel):
     _name = 'dd.externalid.mixin'
-    _description = 'Add external ID as field'
+    _description = 'Add external ID as virtual field'
     _externalid_module = '__import__'
+    _externalid_addrandom = False
     
     
     def _externalid_gen(self):
         self.ensure_one()
-        return "%s_%d" % (self._name.replace('.','_'),self.id)
+        if self.externalid_addrandom:
+            return "%s_%d" % (self._table,self.id)
+        else:
+            return "%s_%d_%s" % (self._table,self.id,_random_string(8))
     
     def _calc_external_id(self):
         exids = self.env['ir.model.data'].search([('model','=',self._name),
@@ -42,4 +52,5 @@ class ExternalIDMixin(models.AbstractModel):
 class ExternalIDPartner(models.Model):
     _name = 'res.partner'
     _inherit = ['res.partner','dd.externalid.mixin']
+    
     
