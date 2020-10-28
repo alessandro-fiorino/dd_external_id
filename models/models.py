@@ -19,10 +19,10 @@ class ExternalIDMixin(models.AbstractModel):
     
     def _externalid_gen(self):
         self.ensure_one()
-        if self.externalid_addrandom:
-            return "%s_%d" % (self._table,self.id)
-        else:
+        if self._externalid_addrandom:
             return "%s_%d_%s" % (self._table,self.id,_random_string(8))
+        else:
+            return "%s_%d" % (self._table,self.id)
     
     def _calc_external_id(self):
         exids = self.env['ir.model.data'].search([('model','=',self._name),
