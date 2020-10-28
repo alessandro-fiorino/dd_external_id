@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="dd_external_id.list">
+      <field name="name">dd_external_id list</field>
+      <field name="model">dd_external_id.dd_external_id</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="dd_external_id.action_window">
+      <field name="name">dd_external_id window</field>
+      <field name="res_model">dd_external_id.dd_external_id</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="dd_external_id.action_server">
+      <field name="name">dd_external_id server</field>
+      <field name="model_id" ref="model_dd_external_id_dd_external_id"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="dd_external_id" id="dd_external_id.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="dd_external_id.menu_1" parent="dd_external_id.menu_root"/>
+    <menuitem name="Menu 2" id="dd_external_id.menu_2" parent="dd_external_id.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="dd_external_id.menu_1_list" parent="dd_external_id.menu_1"
+              action="dd_external_id.action_window"/>
+    <menuitem name="Server to list" id="dd_external_id" parent="dd_external_id.menu_2"
+              action="dd_external_id.action_server"/>
+-->
+  </data>
+</odoo>
