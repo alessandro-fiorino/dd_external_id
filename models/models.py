@@ -48,6 +48,22 @@ class ExternalIDMixin(models.AbstractModel):
                 r.external_id = dids.get(r.id,False)
                 
     external_id = fields.Char(string="External ID (comp)", compute_sudo=True, compute='_calc_external_id')
+    
+    def set_external_id(self,xmlid):
+        self.ensure_one()
+        Imd=self.env['ir.model.data'].sudo()
+        r=Imd.search([('model','=',self._name),('res_id','=',self.id)])
+        if len(r)>0:
+            _logger.info("unlinking old id %s" % (r.name))
+            r.unlink()
+        if xmlid.find('.')>=0:
+            m,newid=xmlid.split('.',1)
+        else:
+            m,newid=self._externalid_module,xmlid
+        _logger.info("Setting xmlid %s" % (newid))        
+        Imd.create({'name':newid, 'model': self._name, 'res_id': self.id, 'module': m, 'noupdate': False, })
+        self.external_id = m+'.'+newid
+    
 
 class ExternalIDPartner(models.Model):
     _name = 'res.partner'
