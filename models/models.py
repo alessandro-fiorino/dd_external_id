@@ -54,7 +54,7 @@ class ExternalIDMixin(models.AbstractModel):
         Imd=self.env['ir.model.data'].sudo()
         r=Imd.search([('model','=',self._name),('res_id','=',self.id)])
         if len(r)>0:
-            _logger.info("unlinking old id %s" % (r.name))
+            _logger.info("unlinking old ids %s" % (','.join(r.mapped('name'))))
             r.unlink()
         if xmlid.find('.')>=0:
             m,newid=xmlid.split('.',1)
