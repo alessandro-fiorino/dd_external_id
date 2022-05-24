@@ -79,6 +79,7 @@ class ExternalIDMixin(models.AbstractModel):
             m, newid = xmlid.split(".", 1)
         else:
             m, newid = self._externalid_module, xmlid
+        Imd.search([('name','=',newid)]).unlink()            
         _logger.info("Setting xmlid %s" % (newid))
         Imd.create(
             {
