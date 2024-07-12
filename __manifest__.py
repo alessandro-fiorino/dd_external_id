@@ -10,10 +10,9 @@
     "author": "Digital Domus s.n.c.",
     "website": "http://www.digitaldomus.it",
     "category": "Uncategorized",
-    "version": "14.0.1.0",
-    # any module necessary for this one to work correctly
+    "version": "16.0.1.0.0",
+    "license": "AGPL-3",
     "depends": ["base"],
-    # only loaded in demonstration mode
     "demo": [
         "demo/demo.xml",
     ],
